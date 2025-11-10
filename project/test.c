@@ -1,13 +1,13 @@
 #include <stdio.h>
-#define CAL(a) a * a * a
-#define MAGIC_CAL(a, b) CAL(a) + CAL(b)
+#include<float.h>
 int main(void) {
-  int nums = 1;
-  if(16 / CAL(2) == 2) {
-    printf("I'm TWO(ﾉ>ω<)ﾉ\n");
-  } else {
-    int nums = MAGIC_CAL(++nums, 2);
-    printf("int nums=%d   ",nums);
-  }
-  printf("nums=%d\n", nums);
+ double a=1.0/3.0;
+ float b=1.0/3.0;
+ printf("FLT_DIG=%d\n",FLT_DIG);
+ printf("DBL_DIG=%d\n",DBL_DIG);
+ 
+ printf("%.6f %.6f\n",a,b);
+ printf("%.12f %.12f\n",a,b);
+ printf("%.16f %.16f\n",a,b);
+return 0;
 }
