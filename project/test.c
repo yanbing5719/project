@@ -261,30 +261,173 @@ int main(){
 //         start++;
 //     }
 // }
-#include <stdio.h>
-void input(double arr1[][5],int n){
-    for(int i=0;i<n;i++){
-        for(int j=0;j<5;j++){
-            scanf("%lf",&arr1[i][j]);
-        }
-    }
-}
-void average(double arr1[][5],double result[],int n){
+// #include <stdio.h>
+// void input(double arr1[][5],int n){
+//     for(int i=0;i<n;i++){
+//         for(int j=0;j<5;j++){
+//             scanf("%lf",&arr1[i][j]);
+//         }
+//     }
+// }
+// void average(double arr1[][5],double result[],int n){
    
-     for(int i=0;i<n;i++){
-         double sum=0;
-        for(int j=0;j<5;j++){
-         sum+=arr1[i][j];
-        }
-        result[i]= sum/5.0;
+//      for(int i=0;i<n;i++){
+//          double sum=0;
+//         for(int j=0;j<5;j++){
+//          sum+=arr1[i][j];
+//         }
+//         result[i]= sum/5.0;
+//     }
+
+// }
+// double average_all(double arr1[][5], int n)
+// {
+//     if (n <= 0) return 0.0;
+//     double sum = 0.0;
+//     int num = n * 5;
+    
+//    for(int i=0;i<n;i++){
+//         for(int j=0;j<5;j++){
+//             sum += arr1[i][j];
+//         }
+//     }
+    
+//     return sum/num;
+// }
+// double MAX(double arr1[][5], int n){
+//     double max=arr1[0][0];
+//     for(int i=0;i<n;i++){
+//         for(int j=0;j<5;j++){
+//             if(arr1[i][j]>max){
+//                 max=arr1[i][j];
+//             }
+//         }
+//     }
+//     return max;
+// }
+// void print(double arr1[][5], int n){
+//     for(int i=0;i<n;i++){
+//         for(int j=0;j<5;j++){
+//             printf("%lf",arr1[i][j]);
+//         }
+//     }
+// }
+// int main(){
+//     double arr1[][5]={0};
+//     int n=5;
+//     double result[3];
+//     void input(arr1,n);
+//      average(arr1,result,n);
+// }
+// #include <stdio.h>
+// #include <string.h>
+// void paixu(char str[],int n){
+//     for(int i=0;i<n-1;i++){
+//         for(int j=i+1;j<n;j++){
+//         if(str[i]>str[j]){
+//           char temp=str[i];
+//           str[i]=str[j];
+//           str[j]=temp;
+//         }
+//         }
+//     }
+// } 
+// int main(){
+//     char str[7]="sncvbx";
+//     int n=7;
+//     paixu(str,n);
+//     for(int i=0;i<7;i++){
+//         printf("%c",str[i]);
+//     }
+// }
+//   #include <stdio.h>
+// int main(){
+//     char str[20];
+//     char *p="hello";
+//     char *m="world";
+//     sprintf(str,"%s %s",p,m);
+//     printf("%s",str);
+// }
+// #include <stdio.h>
+// #include <ctype.h>
+// char *p(char *str,int n){
+//     char *p1;
+//     for(int i=0;str[i]!='\0';i++){
+      
+//        if(isspace(str[i])){
+//         p1=&str[i];
+       
+//         return p1;
+//        }
+      
+//     }
+//     return NULL;
+// }
+// int main(){
+//     char str[5]="asbs";
+//     int n=5;
+//     char *m=p(str,n);
+//     printf("%p",m);
+// }
+// #include <stdio.h>
+// #include <string.h>
+// void daoxu(char *str){
+// char *p;
+// p=str+strlen(str);
+//     while(p>=str){
+//       putchar(*p);
+//        *p--;
+//     }
+// }
+// int main(){
+//     char *str="asfd";
+    
+//     daoxu(str);
+// }
+// #include <stdio.h>
+// #include <ctype.h>
+// #include <string.h>
+// void space(char *str){
+//    int j=0;
+//    for(int i=0;str[i]!='\0';i++){
+//       if(!(isspace(str[i]))){
+//         str[j]=str[i];
+//         j++;
+//       }
+//    }
+//    str[j]='\0';
+//    printf("%s",str);
+// }
+// int main(){
+//    char str[]="hdfcb   iddjc";
+//    int len=strlen(str)+1;
+//      space(str);
+//  }
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+void space(char *str){
+   int space[100]={0};
+   
+   for(int i=0;str[i]!='\0';i++){
+      if(isspace(str[i])){
+        space[i]=1;
+      }
+   }
+   int j=0;
+   for(int i=0;str[i]!='\0';i++){
+    if(space[i]==0){
+     str[j]=str[i];
+     j++;
     }
-
+   }
+   str[j]='\0';
+   puts(str);
 }
-
 int main(){
-    double arr1[][5]={0};
-    int n=5;
-    double result[3];
-    void input(arr1,n);
-     average(arr1,result,n);
+   char str[]="hdfcb   iddjc";
+  int len=strlen(str)+1;
+    space(str);
 }
+
+

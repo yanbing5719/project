@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "c primer plus/c primer plus.md",
+                "file": "题解知识点.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "c primer plus"
+              "title": "题解知识点"
             }
           }
         ]
@@ -169,12 +169,12 @@
       "bases:创建新数据库": false
     }
   },
-  "active": "181194a853c4e2d9",
+  "active": "9f6259e4a65f6190",
   "lastOpenFiles": [
-    "题解知识点.md",
     "c primer plus/c primer plus.md",
-    "c primer plus",
+    "题解知识点.md",
     "leetcode 题目解法，知识点，思想.md",
+    "c primer plus",
     "链表",
     "链表.c",
     "test"
