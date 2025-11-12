@@ -9,8 +9,8 @@ int main(void) {
  printf("%.12f %.12f\n",a,b);
  printf("%.16f %.16f\n",a,b);
 return 0;
-}*/
-/*#include <stdio.h>
+}
+#include <stdio.h>
 #define GALLON 3.785
 #define MILE 1.609
 int main(){
@@ -19,8 +19,8 @@ scanf("%lf%lf",&distance,&gas);
 double ame=distance/gas;
 double eng=(gas * GALLON * 100.0) / (distance * MILE); 
 printf("%f\n%f",ame,eng);
-}*/
-/*#include <stdio.h>
+}
+#include <stdio.h>
 #include <ctype.h>
 int main(){
     char ch;
@@ -31,8 +31,8 @@ int main(){
     else {
         printf("false");
     }
-}*/
-/*#include <stdio.h>
+}
+#include <stdio.h>
 int main(){
     char ch;
     int num=0;
@@ -43,8 +43,8 @@ int main(){
             printf("\n");
         }
     }
-}*/
-/*#include <stdio.h>
+}
+#include <stdio.h>
 int main(){
      char ch;
     int num=0;
@@ -61,8 +61,8 @@ int main(){
         }
     }
     return 0;
-}*/
-/*#include <stdio.h>
+}
+#include <stdio.h>
 #define BASE_HOURS 40
 #define MORE_HOURS 1.5
 #define RATE1 0.15
@@ -119,23 +119,8 @@ double calculate_gross_pay(double pay_rate, double hours) {
     }
 }
 
-double calculate_taxes(double gross_pay) {
-    double taxes = 0.0;
 
-    if (gross_pay > ARATE1 + ARATE2) {
-        // 超过450的部分税率25%
-        taxes = ARATE1* ARATE1 + 
-               ARATE2 * ARATE2+ 
-                (gross_pay - TAX_BRACKET1 - TAX_BRACKET2) * TAX_RATE3;
-    } else if (gross_pay > TAX_BRACKET1) {
-        // 300-450的部分税率20%
-        taxes = TAX_BRACKET1 * TAX_RATE1 + 
-                (gross_pay - TAX_BRACKET1) * TAX_RATE2;
-    } else {
-        // 300以内的部分税率15%
-        taxes = gross_pay * TAX_RATE1;
-    }*/
-   /*#include <stdio.h>
+   #include <stdio.h>
    int isprime(int n);
    int main(){
      int n;
@@ -157,8 +142,8 @@ int isprime(int n){
         }
     }
     return 1;
-}*/
-/*#include <stdio.h>
+}
+#include <stdio.h>
 #include <ctype.h>
 int main(){
     int ch;
@@ -176,8 +161,8 @@ int main(){
     printf("lower=%d\n",lower);
     return 0;
 }
-*/
-/*#include <stdio.h>
+
+#include <stdio.h>
 int main(){
     int guess=50;
     int lower=1,upper=100;
@@ -197,8 +182,8 @@ int main(){
     printf("number is %d",guess);
     return 0;
 
-}*/
-/*#include <stdio.h>
+}
+#include <stdio.h>
 #include <stdbool.h>
 #include <ctype.h>
 int main(){
@@ -217,12 +202,12 @@ int main(){
       
     }
     printf("\nwords=%d",words);
-}*/
-// int sun(int rows,int cols,int arr[rows][cols]){
-//     int r,c;
-//     int tot=0;
-//     for(r=0;r<rows;r++){
-//         for(c=0;c<cols;c++){
+}
+ int sun(int rows,int cols,int arr[rows][cols]){
+     int r,c;
+     int tot=0;
+     for(r=0;r<rows;r++){
+//* /         for(c=0;c<cols;c++){
 //             tot+=arr[r][c];
 //         }
 //     }
@@ -401,9 +386,9 @@ int main(){
 // int main(){
 //    char str[]="hdfcb   iddjc";
 //    int len=strlen(str)+1;
-//      space(str);
-//  }
-#include <stdio.h>
+     space(str);
+//  } */
+/*#include <stdio.h>
 #include <ctype.h>
 #include <string.h>
 void space(char *str){
@@ -421,7 +406,7 @@ void space(char *str){
      j++;
     }
    }
-   str[j]='\0';
+   str[j]='\0'
    puts(str);
 }
 int main(){
@@ -430,4 +415,51 @@ int main(){
     space(str);
 }
 
+#include <stdio.h>
+int main(){
+    int x=30;
+    while(x++<33){
+        int x=100;
+        x++;
+        printf("in=%d\n",x);
+    }
+    printf("out=%d\n",x);
+    return 0;
+}
+#include<stdio.h>
+#include <stdlib.h>
+#include <time.h>
+int main(){
+    int roll;
+    srand(time(NULL));
+    roll=rand()%10;
+    printf("%d",roll);
+}
+#include <stdio.h>
+#include <stdlib.h>
+int main(){
+    int *p;
+    int n;
+    scanf("%d",n);
+    p=(int *)malloc(n*sizeof(int));
+    int arr[n];
+}*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+int main(){
+    int seed[10]={123,456,789,111,444,666,77,888,999,222};
+    int count[10]={0};
+    for(int i=0;i<10;i++){
+    srand(seed[i]);
+    }
+   int num;
+    for(int i=0;i<1000;i++){
+        num=rand()%10;
+       count[num]++;
+    }
+    for(int j=0;j<10;j++){
+        printf("%d ",count[j]);
+    }
+}
 
