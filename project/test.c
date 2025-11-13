@@ -443,10 +443,9 @@ int main(){
     scanf("%d",n);
     p=(int *)malloc(n*sizeof(int));
     int arr[n];
-}*/
+}
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 int main(){
     int seed[10]={123,456,789,111,444,666,77,888,999,222};
     int count[10]={0};
@@ -461,5 +460,91 @@ int main(){
     for(int j=0;j<10;j++){
         printf("%d ",count[j]);
     }
-}
+}*/
+#include <stdio.h>
+struct strbuf{
+    int len;
+    int alloc;
+    char *buf;
+};
 
+// 初始化 sb 结构体，容量为 alloc
+void strbuf_init(struct strbuf *sb, size_t alloc){
+     sb->len=0;
+     sb->buf=malloc(alloc);
+     sb->alloc=alloc;
+     if(sb->buf!=NULL&& alloc!=0){
+        sb->buf[0]='\0';
+     }else{
+        sb->alloc=0;
+     }
+}
+ 
+// 将字符串填充到 sb 中，长度为 len，容量为 alloc
+void strbuf_attach(struct strbuf *sb, void *str, size_t len, size_t alloc){
+    if(sb->buf!=NULL){
+        free(sb->buf);
+    }
+    sb->buf=(char*)str;
+    sb->len=len;
+    sb->alloc=alloc;
+    //加上终止符
+    if(sb->buf!=NULL&&alloc>len){
+      sb->buf[len]='\0';
+    }
+}
+// 释放 sb 结构体的内存
+void strbuf_release(struct strbuf *sb){
+    if(sb->buf==NULL){
+        return;
+    }
+    if(sb->buf!=NULL){
+    free(sb);
+    sb->buf=NULL;
+    }
+    sb->len=0;
+    sb->alloc=0;
+    
+}
+ 
+// 交换两个 strbuf
+void strbuf_swap(struct strbuf *a, struct strbuf *b){
+    if(a==b)return;
+    if(a==NULL||b==NULL)return;
+    struct strbuf temp=*a;
+    *a=*b;
+    *b=temp;
+}
+ 
+// 将 sb 中的原始内存取出，并将 sz 设置为其 alloc 大小
+char *strbuf_detach(struct strbuf *sb, size_t *sz){
+    if(sb->buf==NULL)return NULL;
+    if(sz!=NULL){
+        *sz=sb->alloc;
+    }
+    char *detach=sb->buf;
+    sb->len=0;
+    sb->alloc=0;
+    sb->buf=NULL;
+    return detach;
+}
+ 
+// 比较两个 strbuf 的内存是否相同
+int strbuf_cmp(const struct strbuf *first, const struct strbuf *second){
+    if(first==second) return 0;
+    if(first==NULL) return -1;
+    if(second==NULL) return 1;
+    if(first->buf==second->buf) return 0;
+    if(first->buf==NULL) return -1;
+    if(second->buf==NULL) return 1;
+    return strcmp(first->buf,second->buf);
+}
+ 
+// 清空 sb
+void strbuf_reset(struct strbuf *sb){
+    if(sb==NULL) return;
+    if(sb!=NULL){
+        sb->buf[0]='\0';
+    }
+    sb->len=0;
+}
