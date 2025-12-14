@@ -1,3 +1,21 @@
+ /*printf("%c",T);
+  authority(dp->d_name,st.st_mode);
+ printf(" %ld %s %s %ld",st.st_nlink,pw->pw_name,gr->gr_name,st.st_size);
+ printf(" %.24s ",ctime(&st.st_mtime));  
+ printf(" %s%s%s\n",p,dp->d_name,RESET);
+  }else if(l==0&&a==1){
+       printf("%-s%-10s%s     ",p,dp->d_name,RESET);
+  if(count%4==0){
+    printf("\n");
+  }
+        }
+  1. 解析参数
+2. 读取目录（递归 -R）
+3. 过滤文件（-a）
+4. 为每个文件收集信息（stat）
+5. 排序（-t / -r）
+6. 打印（-l -i -s 控制格式）
+*/
 #include <stdio.h>
 #include <fcntl.h>
 #include <string.h>
@@ -43,10 +61,8 @@ int code_file(const char * filename);
 int document_file(const char * filename);
 //根据不同类型决定不同颜色
 const char *color(const char *filename,mode_t mode);
-//时间戳比较小到大
+//时间戳比较
 int time_cmp(F *file1,F*file2);
-//时间戳比较大到小
-int time_cmp_dao(F *file1,F*file2);
 //文件大小比较
 int size_cmp(F *file1,F*file2);
 //字母顺序比较
@@ -55,8 +71,8 @@ int character_cmp(char*file1,char*file2);
 void authority(char *filename,mode_t mode);
 //文件类型
 char type(char *filename,mode_t mode);
-void ls(int a,int l,int s,int i_1,int t,int r,F file[],int count);
-void list_R(char *path,int a,int l,int s,int i_1,int t,int r);
+//-R的递归
+void list_R(char *path);
 int main(int argc,char *argv[]){
   int a=0;
   int l=0;
@@ -65,8 +81,29 @@ int main(int argc,char *argv[]){
   int r=0;
   int i_1=0;
   int s=0;
-   char *paths[256];
-   int k=0;
+  //文件信息结构体
+  /*struct stat {
+    dev_t     st_dev;       // 文件所在设备 ID
+    ino_t     st_ino;       // inode 编号（硬链接共享同一个 ino）
+    mode_t    st_mode;      // 文件类型 + 权限（最重要！）
+    nlink_t   st_nlink;     // 硬链接数量
+    uid_t     st_uid;       // 文件拥有者 UID
+    gid_t     st_gid;       // 文件所属组 GID
+    dev_t     st_rdev;      // 设备文件的主/次设备号（仅对特殊文件有效）
+    off_t     st_size;      // 文件大小（字节），普通文件最常用
+    blksize_t st_blksize;   // 文件系统 I/O 最佳块大小（用于优化读写）
+    blkcnt_t  st_blocks;    // 实际占用 512B 块的数量（不是 st_size！）
+    struct timespec st_atim;   // 最后访问时间（access time）
+    struct timespec st_mtim;   // 最后修改时间（modify time，内容变）
+    struct timespec st_ctim;   // 最后状态改变时间（change time，权限/属主变）
+    /* 下面三个是为了 POSIX 兼容性提供的别名 
+    #define st_atime st_atim.tv_sec
+    #define st_mtime st_mtim.tv_sec
+    #define st_ctime st_ctim.tv_sec
+};*/
+  //struct stat st;
+   F file[1024];
+  // mode_t mode[1000];
   for(int i=1;i<argc;i++){
     if(argv[i][0]=='-'){
       for(int j=1;argv[i][j]!='\0';j++){
@@ -79,73 +116,69 @@ int main(int argc,char *argv[]){
       case 'i': i_1=1;break;
       case 's': s=1;break;
       }
+    
     }
-  }else{
-   paths[k]=argv[i];
-     k++;
-}
   }
-  if(k==0){
-  paths[0]=".";
-  k=1;
 }
- for(int i=0;i<k;i++){
-if(R==0){
+     //定义目录条目结构体
+     /*struct dirent {
+    ino64_t        d_ino;           // 64位 inode 号
+    off64_t        d_off;           // 下个条目的偏移
+    unsigned short d_reclen;        // 当前记录长度
+    unsigned char  d_type;          // 文件类型
+    char           d_name[NAME_MAX+1]; // NAME_MAX 通常是 255
+};
+*/
  struct dirent *dp; 
   int count=0;
-  char*path;
-    F *file;
-     char fullpath[4096];
-     int place=4096;
-file=(F*)malloc(sizeof(F)*place);
-
-if(file==NULL){
-   perror("malloc");
-   exit(1);
-}
-    path=paths[i];
-     DIR *dir=opendir(path);
+ char *l1=".";
+  char *l2="..";
+  if(R==1){
+    list_R(".");
+    return 0;
+  }
+     DIR *dir=opendir(".");
      if(dir==NULL){
       perror("opendir");
-     continue;
+      return 1;
      }
- while((dp=readdir(dir))!=NULL){
-  if(count>=place){
-    place*=2;
-   F*temp=realloc(file,sizeof(F)*place);
-    if(temp==NULL){
-   perror("realloc");
-   exit(1);
-}
-file=temp;
-  }
-   sprintf(fullpath,"%s/%s",path,dp->d_name);
-  lstat(fullpath,&file[count].st);
-  file[count].name=(char*)malloc(256*sizeof(char));
+      const char*p;
+   char T;
+  //获取用户名
+ struct passwd *pw;
+//获取用户组名
+struct group *gr;
+  while((dp=readdir(dir))!=NULL){
+  if(a==0&&(strcmp(dp->d_name,l1)==0||strcmp(dp->d_name,l2)==0)){
+  continue;
+}   
+  //将当前文件名写入st里面，readdir不断读取下一个文件名，新文件会覆盖旧文件
+  lstat(dp->d_name,&file[count].st);
   strcpy(file[count].name,dp->d_name);
-  file[count].pathname=(char*)malloc((strlen(fullpath)+1)*sizeof(char));
-  strcpy(file[count].pathname,fullpath);
+  p=color(dp->d_name,file[count].st.st_mode);
+   T=type(dp->d_name,file[count].st.st_mode);
+  //获取用户名
+ pw=getpwuid(file[count].st.st_uid);
+//获取用户组名
+gr=getgrgid(file[count].st.st_gid);
   count++;
- }closedir(dir);
-  ls(a,l,s,i_1,t,r,file,count);
+  closedir(dir);
+}
+     if(l){
+  printf("%c",T);
+  authority(dp->d_name,st.st_mode);
+ printf(" %ld %s %s %ld",st.st_nlink,pw->pw_name,gr->gr_name,st.st_size);
+ printf(" %.24s ",ctime(&st.st_mtime));  
+ printf(" %s%s%s\n",p,dp->d_name,RESET);
+  }else if(l==0&&a==1){
+       printf("%-s%-10s%s     ",p,dp->d_name,RESET);
+  if(count%4==0){
+    printf("\n");
+  }
+        }
+}  
 
-for(int i=0;i<count;i++){
-free( file[i].name);
-free(file[i].pathname);
-}
-free(file);
-}
-else{
-  char*path;
-   path=paths[i];
-  list_R(path,a,l,s,i_1,t,r);
-}
-}
- 
 
-return 0;
-
-}
 //压缩文件
 int compress_file(const char * filename){
   const char *compress_type[]={
@@ -182,7 +215,6 @@ int code_file(const char * filename){
       return 1;
     }
   }
-
   return 0;
 }
 //文档文件
@@ -209,27 +241,25 @@ int document_file(const char * filename){
 const char *color(const char *filename,mode_t mode){ //mode_t 文件类型和权限
         if(S_ISDIR(mode))  return BOLD BLUE;  //目录
         if (S_ISLNK(mode)) return CYAN;   //符号连接
-         if (S_ISCHR(mode)) return YELLOW BG_BLUE BOLD;
-          if (S_ISBLK(mode)) return YELLOW BG_BLUE BOLD;
-        //if (mode & S_IXUSR) return COLOR_EXEC;
-       if(S_ISFIFO(mode)) return YELLOW BOLD;
-       if(S_ISSOCK(mode)) return MAGENTA BOLD;
-         if (S_ISREG(mode)) {
          if (mode & S_IXUSR || mode & S_IXGRP || mode & S_IXOTH) {
         return GREEN;   // 可执行文件
     }
+        if (S_ISREG(mode)) return RESET;  //普通文件默认色
+        if (S_ISBLK(mode)) return YELLOW BG_BLUE BOLD;
+        if (S_ISCHR(mode)) return YELLOW BG_BLUE BOLD;
+        //if (mode & S_IXUSR) return COLOR_EXEC;
+       if(S_ISFIFO(mode)) return YELLOW BOLD;
+       if(S_ISSOCK(mode)) return MAGENTA BOLD;
        if(compress_file(filename)) return RED BOLD;
-       if(document_file(filename))  return RESET;
+       if(document_file(filename))  return CYAN;
        if(code_file(filename)) return GREEN;
-  }
-       return RESET;
     }
-//时间戳比较大到小(比较精度应该为纳秒级但是该系统不支持)
-int time_cmp_dao(F *file1,F*file2){
-  if(file1->st.st_mtime <file2->st.st_mtime){
-  return 1;
+//时间戳比较
+int time_cmp(F *file1,F*file2){
+  if(file1->st.st_mtime<file2->st.st_mtime){
+  return -1;
   }else if(file1->st.st_mtime>file2->st.st_mtime){
-    return -1;
+    return 1;
   }else{
     return 0;
   }
@@ -274,127 +304,24 @@ char type(char *filename,mode_t mode){
   if(S_ISSOCK(mode)) return 's';
   if(S_ISLNK(mode)) return 'l';
 }
-
-void list_R(char *path,int a,int l,int s,int i_1,int t,int r){
-     DIR*dir=opendir(path);
-     if(dir==NULL)return ;
-     struct dirent *dp; 
-     struct stat st;
-     char fullpath[4096];
-     F *file;
-    file=(F*)malloc(sizeof(F)*4096);
-int place=4096;
-if(file==NULL){
-   perror("malloc");
-   exit(1);
+//-R的递归
+void list_R(char *path){
+  DIR*dir=opendir(path);
+struct dirent *contents;
+char path_name[1024];
+struct stat st_c;
+printf("%s",path);
+while((contents=readdir(dir))!=NULL){
+sprintf(path_name,"%s/%s",path,contents->d_name);
+lstat(path_name,&st_c);
+if(S_ISDIR(st_c.st_mode)){
+if(strcmp(contents->d_name,".")==0||strcmp(contents->d_name,"..")==0){
+  continue;
 }
-     int count=0;
-     printf("%s:\n",path);
-     //打印当前目录的内容
-     int k=0;
-     while((dp=readdir(dir))!=NULL){
-       if(count>=place){
-    place*=2;
-  F*temp=realloc(file,sizeof(F)*place);
-    if(temp==NULL){
-   perror("realloc");
-   exit(1);
-    }
-    file=temp;
+printf("%s\n",contents->d_name);
+list_R(path_name);
 }
-      if(a==0){
-     if (strcmp(dp->d_name, ".") == 0 || strcmp(dp->d_name, "..") == 0) {
-        continue;
-    }
-      if(dp->d_name[0]=='.'){
-        continue;
-      }  
-    }
-        sprintf(fullpath,"%s/%s",path,dp->d_name);
-  lstat(fullpath,&file[count].st);
-  file[count].name=(char*)malloc(256*sizeof(char));
-  strcpy(file[count].name,dp->d_name);
-  file[count].pathname=(char*)malloc((strlen(fullpath)+1)*sizeof(char));
-  strcpy(file[count].pathname,fullpath);
-  count++;
-    }
-  ls(a,l,s,i_1,t,r,file,count);
-  printf("\n");
-    //递归子目录     
-    rewinddir(dir); 
-         for(int i=0;i<count;i++){
-     if (strcmp(file[i].name, ".") == 0 || strcmp(file[i].name, "..") == 0) {
-        continue;
-    } 
-      if(a==0&&file[i].name[0]=='.'){
-        continue;
-      }  
-      if(S_ISDIR(file[i].st.st_mode)){
-         if (strcmp(file[i].pathname, "/proc") == 0 ||
-        strcmp(file[i].pathname, "/sys") == 0 ||
-        strcmp(file[i].pathname, "/dev") == 0) {
-        continue;
-    }
-
-       list_R(file[i].pathname,a,l,s,i_1,t,r);
-      }
-         }
-  
-     for(int i=0;i<count;i++){
-        free(file[i].name);
-        free(file[i].pathname);
-    }
-  free(file);
-    closedir(dir);
+}
+closedir(dir);
 }
 
-void ls(int a,int l,int s,int i_1,int t,int r,F file[],int count){
-  //-t
-if(t==1){
-  qsort(file,count,sizeof(F),(int(*)(const void*,const void*))time_cmp_dao);
-//-r
-if(r==1){
- for(int i=0;i<count/2;i++){
-  F temp=file[i];
-  file[i]=file[count-1-i];
-  file[count-1-i]=temp;
- }
-}
-}
-      for(int i=0;i<count;i++){
-       if(a==0&&file[i].name[0]=='.'){
-         continue;
-} 
-        const char*p=color(file[i].pathname,file[i].st.st_mode);
-  char T=type(file[i].pathname,file[i].st.st_mode);
-  //获取用户名
- struct passwd *pw=getpwuid(file[i].st.st_uid);
-//获取用户组名
-struct group *gr=getgrgid(file[i].st.st_gid);
-if(i_1==1){
-     printf("%ld ",file[i].st.st_ino);
-}
-if(s==1){
-   printf("%ld ",file[i].st.st_blocks);
-}
-if(l==1){
- printf("%c",T);
- authority(file[i].pathname,file[i].st.st_mode);
- printf(" %ld %s %s %ld",file[i].st.st_nlink,pw->pw_name,gr->gr_name,file[i].st.st_size);
- printf(" %.24s ",ctime(&file[i].st.st_mtime));  
- printf(" %s%s%s\n",p,file[i].name,RESET);
-}else if(l==0){
-    printf("%s%-25s%s",p,file[i].name,RESET);
-      if((i+1)%3==0){
-        printf("\n");
-      }
-        }else if(a==1&&!s&&!i&&!l){
-   for(int i=0;i<count;i++){
-       printf("%-s%-25s%s",p,file[i].name,RESET);
-  if(i%4==0){
-    printf("\n");
-  }
-        }
-        }
-      }
-    }

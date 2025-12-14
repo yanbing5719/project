@@ -127,6 +127,7 @@ file=temp;
   strcpy(file[count].pathname,fullpath);
   count++;
  }closedir(dir);
+ qsort(file,count,sizeof(F),(int(*)(const void*,const void*))character_cmp);
   ls(a,l,s,i_1,t,r,file,count);
 
 for(int i=0;i<count;i++){
@@ -209,6 +210,8 @@ int document_file(const char * filename){
 const char *color(const char *filename,mode_t mode){ //mode_t 文件类型和权限
         if(S_ISDIR(mode))  return BOLD BLUE;  //目录
         if (S_ISLNK(mode)) return CYAN;   //符号连接
+        if (S_ISLNK(mode)) return MAGENTA BOLD;
+
          if (S_ISCHR(mode)) return YELLOW BG_BLUE BOLD;
           if (S_ISBLK(mode)) return YELLOW BG_BLUE BOLD;
         //if (mode & S_IXUSR) return COLOR_EXEC;
@@ -268,6 +271,7 @@ void authority(char *filename,mode_t mode){
 char type(char *filename,mode_t mode){
   if(S_ISREG(mode)) return '-';
   if(S_ISDIR(mode)) return 'd';
+  if (S_ISLNK(mode)) return 'l';
   if(S_ISCHR(mode)) return 'c';
   if(S_ISBLK(mode)) return 'b';
   if(S_ISFIFO(mode)) return 'p';
@@ -372,17 +376,17 @@ if(r==1){
 //获取用户组名
 struct group *gr=getgrgid(file[i].st.st_gid);
 if(i_1==1){
-     printf("%ld ",file[i].st.st_ino);
+     printf("%-7ld ",file[i].st.st_ino);
 }
 if(s==1){
-   printf("%ld ",file[i].st.st_blocks);
+   printf("%-ld ",file[i].st.st_blocks);
 }
 if(l==1){
  printf("%c",T);
  authority(file[i].pathname,file[i].st.st_mode);
- printf(" %ld %s %s %ld",file[i].st.st_nlink,pw->pw_name,gr->gr_name,file[i].st.st_size);
- printf(" %.24s ",ctime(&file[i].st.st_mtime));  
- printf(" %s%s%s\n",p,file[i].name,RESET);
+ printf(" %-ld %-s %-s %-ld",file[i].st.st_nlink,pw->pw_name,gr->gr_name,file[i].st.st_size);
+ printf(" %-.16s ",ctime(&file[i].st.st_mtime));  
+ printf(" %s%-s%s\n",p,file[i].name,RESET);
 }else if(l==0){
     printf("%s%-25s%s",p,file[i].name,RESET);
       if((i+1)%3==0){
@@ -390,7 +394,7 @@ if(l==1){
       }
         }else if(a==1&&!s&&!i&&!l){
    for(int i=0;i<count;i++){
-       printf("%-s%-25s%s",p,file[i].name,RESET);
+       printf("%s%-25s%s",p,file[i].name,RESET);
   if(i%4==0){
     printf("\n");
   }
