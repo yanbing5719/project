@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "题解知识点.md",
+                "file": "tijie.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "题解知识点"
+              "title": "tijie"
             }
           }
         ],
@@ -228,15 +228,15 @@
   },
   "active": "6cb7d3ef247e0b86",
   "lastOpenFiles": [
-    "strbuf相关操作.md",
+    "leetcode.md",
+    "CPP/cpp.md",
+    "tijie.md",
+    "strbuf.c.md",
     "设计一个 C 语言的动态扩容缓冲区.md",
-    "leetcode 题目解法，知识点，思想.md",
     "secret.md",
     "ls.c",
     "linux",
-    "题解知识点.md",
-    "c primer plus/c primer plus.md",
-    "c primer plus",
+    "CPP",
     "链表",
     "链表.c",
     "test"

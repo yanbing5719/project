@@ -37,8 +37,6 @@ typedef struct file{
 }F;
 //压缩文件
 int compress_file(const char * filename);
-//代码文件
-int code_file(const char * filename);
 //文档文件
 int document_file(const char * filename);
 //根据不同类型决定不同颜色
@@ -55,8 +53,11 @@ int character_cmp(char*file1,char*file2);
 void authority(char *filename,mode_t mode);
 //文件类型
 char type(char *filename,mode_t mode);
+//实现-a -l -s -i等打印
 void ls(int a,int l,int s,int i_1,int t,int r,F file[],int count);
+//-R条件下打印
 void list_R(char *path,int a,int l,int s,int i_1,int t,int r);
+//主函数
 int main(int argc,char *argv[]){
   int a=0;
   int l=0;
@@ -164,28 +165,6 @@ int compress_file(const char * filename){
   }
   return 0;
 }
-//代码文件
-int code_file(const char * filename){
-  const char*code_type[]={
-      ".c", ".h", ".cpp", ".hpp", ".java", ".py", 
-        ".js", ".ts", ".html", ".css", ".php", ".cs",
-        ".go", ".rs", ".swift", ".rb", ".sh", ".pl",
-        ".yml", ".yaml", ".json", ".xml", ".sql",
-        ".lua", ".r", ".m", ".dart", ".scala",
-        ".asm", ".s", ".mk", ".cmake",
-        NULL
-        
-    };
-    int file_len=strlen(filename);
-  for(int i=0;code_type[i]!=NULL;i++){
-    int extlen=strlen(code_type[i]);
-    if(file_len>extlen&&strncmp(code_type[i],filename+(file_len-extlen),extlen)==0){
-      return 1;
-    }
-  }
-
-  return 0;
-}
 //文档文件
 int document_file(const char * filename){
   const char*document_type[]={
@@ -219,11 +198,10 @@ const char *color(const char *filename,mode_t mode){ //mode_t 文件类型和权
        if(S_ISSOCK(mode)) return MAGENTA BOLD;
          if (S_ISREG(mode)) {
          if (mode & S_IXUSR || mode & S_IXGRP || mode & S_IXOTH) {
-        return GREEN;   // 可执行文件
+        return GREEN BOLD;   // 可执行文件
     }
        if(compress_file(filename)) return RED BOLD;
        if(document_file(filename))  return RESET;
-       if(code_file(filename)) return GREEN;
   }
        return RESET;
     }
@@ -365,10 +343,12 @@ if(r==1){
  }
 }
 }
+long total_blocks=0;
       for(int i=0;i<count;i++){
        if(a==0&&file[i].name[0]=='.'){
          continue;
 } 
+     total_blocks += file[i].st.st_blocks;
         const char*p=color(file[i].pathname,file[i].st.st_mode);
   char T=type(file[i].pathname,file[i].st.st_mode);
   //获取用户名
@@ -376,29 +356,26 @@ if(r==1){
 //获取用户组名
 struct group *gr=getgrgid(file[i].st.st_gid);
 if(i_1==1){
-     printf("%-7ld ",file[i].st.st_ino);
+     printf("%-8ld ",file[i].st.st_ino);
 }
 if(s==1){
-   printf("%-ld ",file[i].st.st_blocks);
+   printf("%2ld ",file[i].st.st_blocks);
 }
 if(l==1){
  printf("%c",T);
  authority(file[i].pathname,file[i].st.st_mode);
- printf(" %-ld %-s %-s %-ld",file[i].st.st_nlink,pw->pw_name,gr->gr_name,file[i].st.st_size);
+ printf(" %-ld %-s %-s %-5ld",file[i].st.st_nlink,pw->pw_name,gr->gr_name,file[i].st.st_size);
  printf(" %-.16s ",ctime(&file[i].st.st_mtime));  
- printf(" %s%-s%s\n",p,file[i].name,RESET);
-}else if(l==0){
-    printf("%s%-25s%s",p,file[i].name,RESET);
-      if((i+1)%3==0){
+ printf(" %s%-10s%s\n",p,file[i].name,RESET);
+}else{
+    printf("%s%-20s%s",p,file[i].name,RESET);
+      if((i+1)%2==0){
         printf("\n");
       }
-        }else if(a==1&&!s&&!i&&!l){
-   for(int i=0;i<count;i++){
-       printf("%s%-25s%s",p,file[i].name,RESET);
-  if(i%4==0){
-    printf("\n");
-  }
         }
+        }
+        if(l==1){
+printf("总计 %ld\n", total_blocks);
         }
       }
-    }
+    
