@@ -196,3 +196,36 @@ return ret_val;
 }
 
 ```
+## 加一
+这个题不可以先转化为整数再进行加以操作，因为可能导致整数溢出，所以必须在原有的数组上面在直接操作，引入一个新的变量来进行进位操作。
+```c
+int* plusOne(int* digits, int digitsSize, int* returnSize) {
+
+int *result=(int *)malloc(digitsSize*sizeof(int));
+
+int idx=digitsSize;
+
+if(digits[digitsSize-1]==9){
+
+result[digitsSize-1]=0;
+
+result[digitsSize-2]=digits[digitsSize-2]+1;
+
+}else{
+
+digits[digitsSize-1]=digits[digitsSize-1]+1;
+
+}
+
+for(int i=0;i<digitsSize;i++){
+
+result[i]=digits[i];
+
+}
+
+*returnSize=digitsSize;
+
+return result;
+
+}
+```
