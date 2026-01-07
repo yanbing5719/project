@@ -229,3 +229,70 @@ return result;
 
 }
 ```
+## 最接近的三数之和
+```c
+int threeSumClosest(int* nums, int numsSize, int target) {
+
+for(int i=0;i<numsSize-1;i++){
+
+for(int j=0;j<numsSize-1-i;j++){
+
+if(nums[j]>nums[j+1]){
+
+int t=nums[j];
+
+nums[j]=nums[j+1];
+
+nums[j+1]=t;
+
+}
+
+}
+
+}
+
+int sum1=0,sum=nums[0]+nums[1]+nums[2];
+
+int min=INT_MAX;
+
+for(int i=0;i<numsSize-2;i++){
+
+int start=i+1,end=numsSize-1;
+
+while(start<end){
+
+sum=nums[start]+nums[end]+nums[i];
+
+int object=abs(sum-target);
+
+if(object<min){
+
+min=object;
+
+sum1=sum;
+
+}
+
+if(sum<target){
+
+start++;
+
+}else if(sum>target){
+
+end--;
+
+}else{
+
+return target;
+
+}
+
+}
+
+}
+
+return sum1;
+
+}
+```
+**要点**：不断向目标值逼近，利用双指针的方式，每次根据与目标值的偏差移动开始或者结尾一个指针
