@@ -1,3 +1,4 @@
+
 # 基本框架
 ```c
 #include "iostream"
@@ -226,12 +227,82 @@ int main(){
 }
 ```
 c++可以将函数定义在结构体里面，初始化一般都用函数来实现，定义变量的时候可以不加struct
+# string 字符串
+- string创建字符串，末尾没有'/0'结尾
+```c
+string s("hello world");
+string s1("nihao");
+s=s1;
+//可以直接进行复制
+```
+- 用getline来读取字符串与fgets类似，都是以'\n'结尾，可以读取空格但是getline可以指定结束条件
+```c
+string s1,s2;
+getline(cin,s1);
+getline(cin,s2,'a');
+```
 
+- 用size计算字符串长度
+```c
+string s1="hello";
+string s2="world ";
+cout<<s1.size()<<' '<<s2.size()<<endl;
+```
 
-
-
-
-
-
-
-
+- 迭代器类似于c语言里面对一个字符串设置start 和end 指针
+begin( )获得指向第一个字符的指针，end( )获得指向最后一个字符的后一个指针
+```c
+//用迭代器实现对字符串的遍历
+string s1="hello";
+string::iterator it1=s1.begin();
+string ::iterator it2=s1.end();
+cout<<it2-it1<<endl;
+while(it1<it2){
+cout<<*it1;
+it1++;
+}
+return 0;
+```
+- push_back( )在字符串末尾插入一个字符
+```c
+string s1="hello";
+cout<<s1<<endl;
+s1.push_back(' ');
+s1.push_back('w');
+s1.push_back('o');
+s1.push_back('r');
+s1.push_back('l');
+s1.push_back('d');
+cout<<s1<<endl;
+return 0;
+```
+- string类型的字符串可以直接加法运算
+```c
+ string s1("hello");
+      string s2("world");
+      s1+=s2;
+      cout<<s1<<endl;
+      s2="hello"+s2;
+        cout<<s2<<endl;
+      return 0;
+ ```
+ - pop_back 删除末尾字符
+  ```c
+string s1("hello");
+      while(s1.size()>=1){
+    s1.pop_back();
+      }
+      cout<<s1<<endl;
+      return 0;
+```
+- insert在指定位置插入字符串
+ ```c
+    string s("hello");
+      cout<<s<<endl;
+      s.insert(1,"xxx");
+        cout<<s<<endl;
+        s.insert(2,3,'m');
+        cout<<s<<endl;
+      return 0;
+  ```
+                        
