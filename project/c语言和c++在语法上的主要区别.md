@@ -305,4 +305,22 @@ string s1("hello");
         cout<<s<<endl;
       return 0;
   ```
-                        
+ - find( ) 返回子串在字符串中第一次出现的起始下标值，未找到返回整数值npos=18446744073709551615
+  ```c
+ // find 函数的几种常见用法
+ string s1="hello nihao l lo niidgllhasyudcllo";
+  string s2("llo");
+   //size_t n=s1.find(s2);
+   //cout<<n<<endl; //2
+//    size_t n=s1.find(s2,6);
+//    cout<<n<<endl; //12
+size_t n=s1.find("llo",6,2);
+   cout<<n<<endl; //22
+   ```
+   - substr( )截取字符串中指定位置字串的长度,通常和find函数一起用
+   ```c
+     string s1="hello nihao";
+    size_t n=s1.find("ni");
+   string s3=s1.substr(n,2);
+   cout<<s3;//ni
+   ```
