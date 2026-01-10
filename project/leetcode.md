@@ -296,3 +296,52 @@ return sum1;
 }
 ```
 **要点**：不断向目标值逼近，利用双指针的方式，每次根据与目标值的偏差移动开始或者结尾一个指针
+## 删除链表倒数第n个结点
+```c
+struct ListNode* removeNthFromEnd(struct ListNode* head, int n) {
+
+int m=0;
+
+struct ListNode*x=head;
+
+while(x!=NULL){
+
+x=x->next;
+
+m++;
+
+}
+
+if(n==m){
+
+struct ListNode*temp=head;
+
+head=head->next;
+
+free(temp);
+
+return head;
+
+}
+
+int object=m-n;
+
+struct ListNode*p=head;
+
+for(int i=0;i<object-1;i++){
+
+p=p->next;
+
+}
+
+struct ListNode *q=p->next;
+
+p->next=q->next;
+
+free(q);
+
+return head;
+
+}
+```
+**要点**：计算链表长度始终不可以移动头指针，找清楚要删除结点的前一个结点，链表里面指针的移动必须是p=p->next,坚决不能是p++;

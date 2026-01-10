@@ -1,4 +1,3 @@
-
 # 基本框架
 ```c
 #include "iostream"
@@ -89,7 +88,7 @@ int c=(a>b?a:b); //正确
 (a>b?a:b)=20;  //这种写法在c++里面同样正确
 ```
 # 引用
-**c语言里面函数里面改变参数的值要用到指针**
+c语言里面函数里面改变参数的值要用到指针
 ```c
 void swap(int *a, int *b) {
     int t = *a;
@@ -99,7 +98,7 @@ void swap(int *a, int *b) {
 int x = 1, y = 2;
 swap(&x, &y);
 ```
-**c++里面引入引用的概念**
+c++里面引入引用的概念
 ```c
 int x = 10;
 int& r = x;
@@ -122,7 +121,7 @@ c++
 void inc(int& x) {
     x++;
 }
-inc(a);
+int(a);
 //调用直接传入值但是起到了指针的效果
 ```
 函数返回值的区别
@@ -141,6 +140,33 @@ int& f() {
     return x;
 }
 f() = 100;   // 直接修改 x
+```
+# 函数重载
+一般情况下int和double类型的加法运算要写两个名字不同的函数
+```c
+int Intadd(int a,int b){
+    return a+b;
+}
+double Doubleadd(double a,double b){
+    return a+b;
+}
+```
+函数重载可以让两个函数的名字相同（**在同一个作用域内，函数名相同，但参数列表不同，编译器可以根据调用时传入的参数来判断到底调用哪一个函数。**）
+```c
+nt add(int a,int b){
+    return a+b;
+}
+double add(double a,double b){
+    return a+b;
+}
+int main( ){
+int a,b;
+   cin>>a>>b;
+   int x=add(a,b);
+   double c,d;
+   cin>>c>>d;
+   double y=add(c,d);
+}
 ```
 # c++里面namespace 的应用
 避免名字冲突
@@ -167,7 +193,8 @@ int main(){
     B::func2();
     return 0;
 }
-    ```
+```
+
 # 结构体定义的区别
 ```c
 #include <iostream>
@@ -227,7 +254,7 @@ int main(){
 }
 ```
 c++可以将函数定义在结构体里面，初始化一般都用函数来实现，定义变量的时候可以不加struct
-# string 字符串
+# string 字符串及其相关函数
 - string创建字符串，末尾没有'/0'结尾
 ```c
 string s("hello world");
@@ -305,7 +332,7 @@ string s1("hello");
         cout<<s<<endl;
       return 0;
   ```
- - find( ) 返回子串在字符串中第一次出现的起始下标值，未找到返回整数值npos=18446744073709551615
+  - find( ) 返回子串在字符串中第一次出现的起始下标值，未找到返回整数值npos=18446744073709551615
   ```c
  // find 函数的几种常见用法
  string s1="hello nihao l lo niidgllhasyudcllo";
@@ -324,3 +351,55 @@ size_t n=s1.find("llo",6,2);
    string s3=s1.substr(n,2);
    cout<<s3;//ni
    ```
+-  string 关系运算(至少有一个string类型的字符串才可以比较）类似于strcmp比较ascall码
+```c
+  string s1("hello");
+    string s2=" world";
+    string s3("hello world");
+     if(s1==s2){
+        cout<<"no"<<endl;
+     }
+     if(s3==s1+s2){
+        cout<<"yes"<<endl;
+     }
+     return 0;
+  ```
+# swap函数
+```c
+//数组的交换
+ int arr1[5]={1,2,3,4,5};
+  int arr2[5]={6,7,8,9,10};
+  swap(arr1,arr2);
+   for(int e:arr1){
+        cout<<e<<' ';
+   } //“从 arr1 中依次取出每一个元素，赋值给变量 e”,经常用于数组和for循环
+ ```
+
+# 运算符的重载
+ ```c
+ struct student{
+    string name;
+    int age;
+    int score[3];
+};
+ostream& operator<<(ostream &os,const student &st){
+    os<<st.name<<endl;
+    os<<st.age<<endl;
+    return os;
+}
+istream& operator>>(istream &is,student &st){
+    is>>st.name;
+    is>>st.age;
+    return is;
+}       
+int main(){
+    student st;
+    cin>>st;
+   cout<<st<<endl;
+   return 0;
+}
+```
+
+
+
+
