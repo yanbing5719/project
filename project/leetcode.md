@@ -345,3 +345,58 @@ return head;
 }
 ```
 **要点**：计算链表长度始终不可以移动头指针，找清楚要删除结点的前一个结点，链表里面指针的移动必须是p=p->next,坚决不能是p++;
+## 交换链表中的结点
+```c
+struct ListNode* swapPairs(struct ListNode* head) {
+
+struct ListNode*current=head;
+
+int n=0;
+
+while(current!=NULL){
+
+current=current->next;
+
+n++;
+
+}
+
+if(n==1){
+
+return head;
+
+}
+
+if(n==0){
+
+return NULL;
+
+}
+
+struct ListNode*p=head;
+
+struct ListNode*q=head->next;
+
+while(p!=NULL&&p->next!=NULL){
+
+int t=p->val;
+
+p->val=q->val;
+
+q->val=t;
+
+p=p->next->next;
+
+if(p!=NULL){
+
+q=p->next;
+
+}
+
+}
+
+return head;
+
+}
+```
+**要点**：关键在于考虑循环的边界，容易越界

@@ -399,7 +399,54 @@ int main(){
    return 0;
 }
 ```
-
+# sort函数(类似于qsort函数）
+```c
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+//设计比较函数
+bool cmp(int x,int y){
+    return x>y;
+}
+//设计仿函数
+struct CMP{
+    bool operator()(int x,int y){
+        return x>y;
+    }
+}cmp1;
+struct Student{
+    string name;
+    int age;
+};
+//结构体排序函数
+bool cmp_name(Student s1,Student s2){
+    return s1.name<s2.name;
+};
+int main(){
+    int arr[5]={3,1,4,5,2};
+    sort(arr,arr+5);
+    for(int i=0;i<5;i++){
+        cout<<arr[i]<<' ';
+    }
+    sort(arr,arr+5,cmp);
+    cout<<endl;
+    for(int i=0;i<5;i++){
+        cout<<arr[i]<<' ';
+    }
+    cout<<endl;
+    string s("treltrhujhbxbghfdshauihiubvhd");
+    sort(s.begin(),s.end(),cmp1);
+    cout<<s<<endl;
+    Student arrs[3]={{"zhangsan",18},{"lisi",17},{"wangwu",19}};
+    sort(arrs,arrs+3,cmp_name);
+    for(int i=0;i<3;i++){
+        cout<<arrs[i].name<<' '<<arrs[i].age<<endl;
+    }
+    return 0;
+}
+```
+sort函数可以比较已经定义的几种数据类型（默认为从小到大排序），如果要按照其他顺序去排序要自定义比较函数或者仿函数。要比较类似于结构体类型的数据也要给他传入一个自定义的比较函数。
 
 
 
