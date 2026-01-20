@@ -99,12 +99,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "算法的初步学习.md",
+                "file": "tijie.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "算法的初步学习"
+              "title": "tijie"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ls命令的实现.md",
+                "file": "c++的初步学习.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ls命令的实现"
+              "title": "c++的初步学习"
             }
           },
           {
@@ -136,7 +136,7 @@
             }
           }
         ],
-        "currentTab": 7
+        "currentTab": 8
       }
     ],
     "direction": "vertical"
@@ -284,13 +284,14 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "42a69a93a046540d",
+  "active": "66f971c474a1efed",
   "lastOpenFiles": [
+    "未命名.md",
+    "tijie.md",
+    "算法的初步学习.md",
     "数据结构.md",
     "c++的初步学习.md",
-    "算法的初步学习.md",
     "strbuf.c.md",
-    "tijie.md",
     "CPP/cpp.md",
     "leetcode.md",
     "ls命令的实现.md",
