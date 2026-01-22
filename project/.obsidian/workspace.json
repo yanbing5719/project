@@ -113,12 +113,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "c++的初步学习.md",
+                "file": "数据结构.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "c++的初步学习"
+              "title": "数据结构"
             }
           },
           {
@@ -286,11 +286,11 @@
   },
   "active": "66f971c474a1efed",
   "lastOpenFiles": [
+    "c++的初步学习.md",
     "未命名.md",
     "tijie.md",
     "算法的初步学习.md",
     "数据结构.md",
-    "c++的初步学习.md",
     "strbuf.c.md",
     "CPP/cpp.md",
     "leetcode.md",

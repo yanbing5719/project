@@ -1,101 +1,51 @@
 {
-  /* =======================
-     C_Cpp_Runner 编译运行配置
-     ======================= */
-  "C_Cpp_Runner.cCompilerPath": "/usr/bin/gcc",
-  "C_Cpp_Runner.cppCompilerPath": "/usr/bin/g++",
-  "C_Cpp_Runner.debuggerPath": "/usr/bin/gdb",
-  "C_Cpp_Runner.cStandard": "",
-  "C_Cpp_Runner.cppStandard": "",
-  "C_Cpp_Runner.msvcBatchPath": "",
-  "C_Cpp_Runner.useMsvc": false,
+  /* =========================
+     目标：
+     - 不自动补代码
+     - 不抢 Enter / Tab
+     - 不生成模板
+     - 仅显示“被动提示列表”
+     ========================= */
 
-  "C_Cpp_Runner.warnings": [
-    "-Wall",
-    "-Wextra",
-    "-Wpedantic",
-    "-Wshadow",
-    "-Wformat=2",
-    "-Wcast-align",
-    "-Wconversion",
-    "-Wsign-conversion",
-    "-Wnull-dereference"
-  ],
-
-  "C_Cpp_Runner.msvcWarnings": [
-    "/W4",
-    "/permissive-",
-    "/w14242",
-    "/w14287",
-    "/w14296",
-    "/w14311",
-    "/w14826",
-    "/w44062",
-    "/w44242",
-    "/w14905",
-    "/w14906",
-    "/w14263",
-    "/w44265",
-    "/w14928"
-  ],
-
-  "C_Cpp_Runner.enableWarnings": true,
-  "C_Cpp_Runner.warningsAsError": false,
-  "C_Cpp_Runner.compilerArgs": [],
-  "C_Cpp_Runner.linkerArgs": [],
-
-  "C_Cpp_Runner.includePaths": [
-    "${workspaceFolder}/**"
-  ],
-  "C_Cpp_Runner.includeSearch": [
-    "*",
-    "**/*"
-  ],
-  "C_Cpp_Runner.excludeSearch": [
-    "**/build",
-    "**/build/**",
-    "**/.*",
-    "**/.*/**",
-    "**/.vscode",
-    "**/.vscode/**"
-  ],
-
-  "C_Cpp_Runner.useAddressSanitizer": false,
-  "C_Cpp_Runner.useUndefinedSanitizer": false,
-  "C_Cpp_Runner.useLeakSanitizer": false,
-  "C_Cpp_Runner.showCompilationTime": false,
-  "C_Cpp_Runner.useLinkTimeOptimization": false,
-  "C_Cpp_Runner.msvcSecureNoWarnings": false,
-
-  /* =======================
-     VS Code 自动补全 —— 全部关闭
-     ======================= */
+  /* 关闭自动弹出补全 */
   "editor.quickSuggestions": {
     "comments": "off",
     "strings": "off",
-    "other": "off"
+    "other": "on"
   },
-  "editor.suggestOnTriggerCharacters": false,
+  "editor.suggestOnTriggerCharacters": true,
+
+  /* 禁止任何“自动接受” */
+  "editor.acceptSuggestionOnEnter": "off",
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.tabCompletion": "off",
+
+  /* 关闭参数 / 幽灵提示 */
   "editor.parameterHints.enabled": false,
-  "editor.wordBasedSuggestions": "off",
   "editor.inlineSuggest.enabled": false,
 
-  /* 彻底关闭 C/C++ IntelliSense */
-  "C_Cpp.intelliSenseEngine": "Disabled",
+  /* ⚠️ 关键：不要关闭 suggest 本身 */
+  "editor.suggest.enabled": true,
 
-  /* 再对 C / C++ 语言单独兜底 */
+  /* 防止 snippets / 模板 */
+  "editor.snippetSuggestions": "none",
+
+  /* C / C++ 单独兜底 */
   "[c]": {
     "editor.quickSuggestions": {
       "comments": "off",
       "strings": "off",
-      "other": "off"
+      "other": "on"
     }
   },
   "[cpp]": {
     "editor.quickSuggestions": {
       "comments": "off",
       "strings": "off",
-      "other": "off"
+      "other": "on"
     }
-  }
+  },
+
+  /* 使用最“弱”的 C/C++ 解析模式 */
+  "C_Cpp.intelliSenseEngine": "Default"
 }
