@@ -16,7 +16,7 @@
   "editor.suggestOnTriggerCharacters": true,
 
   /* 禁止任何“自动接受” */
-  "editor.acceptSuggestionOnEnter": "off",
+  "editor.acceptSuggestionOnEnter": "on",
   "editor.acceptSuggestionOnCommitCharacter": false,
   "editor.tabCompletion": "off",
 
