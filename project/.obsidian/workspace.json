@@ -155,12 +155,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "算法的初步学习.md",
+                "file": "第一周周报.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "算法的初步学习"
+              "title": "第一周周报"
+            }
+          },
+          {
+            "id": "d9e704837d11f16e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "第二周周报.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "第二周周报"
             }
           },
           {
@@ -178,7 +192,7 @@
             }
           }
         ],
-        "currentTab": 11
+        "currentTab": 12
       }
     ],
     "direction": "vertical"
@@ -326,10 +340,12 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "a952c3ca1ab6f9cd",
+  "active": "d9e704837d11f16e",
   "lastOpenFiles": [
-    "XiyouLinux Group 周报 郭晏华.md",
+    "leetcode.md",
     "算法的初步学习.md",
+    "第二周周报.md",
+    "第一周周报.md",
     "数据结构.md",
     "tijie.md",
     "ls命令的实现.md",
@@ -337,7 +353,6 @@
     "c++的初步学习.md",
     "未命名.md",
     "CPP/cpp.md",
-    "leetcode.md",
     "c语言和c++在语法上的主要区别.md",
     "未命名",
     "设计一个 C 语言的动态扩容缓冲区.md",
