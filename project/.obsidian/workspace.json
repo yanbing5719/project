@@ -169,12 +169,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "第二周周报.md",
+                "file": "算法的初步学习.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "第二周周报"
+              "title": "算法的初步学习"
             }
           },
           {
@@ -342,9 +342,9 @@
   },
   "active": "d9e704837d11f16e",
   "lastOpenFiles": [
+    "第二周周报.md",
     "leetcode.md",
     "算法的初步学习.md",
-    "第二周周报.md",
     "第一周周报.md",
     "数据结构.md",
     "tijie.md",
