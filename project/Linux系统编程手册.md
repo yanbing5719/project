@@ -90,3 +90,45 @@ return
 3.彻底删除僵尸进程
 - pid_t waitpid(pid_t pid, int *status, int options);
 等待“指定的子进程（或一组）”结束，可阻塞也可不阻塞。
+### 6.7 环境列表
+环境变量是进程的一部分，用来控制程序行为，在 fork 时继承，在 exec 后保留。不改程序代码，就能改变程序行为
+- environ（指向环境变量表的全局变量）
+ ```
+ environ
+  |
+  v
++------------------+
+| "PATH=/bin:..."  |
+| "HOME=/home/xx"  |
+| "USER=ice"       |
+| "LANG=zh_CN..."  |
+| ...              |
+| NULL             |
++------------------+
+```
+- 
+ ```c
+ //getenv(从进程环境中检索单个值）
+ char *getenv(const char *name);
+ //putenv向调用的进程中添加一个新的变量，或修改一个已经存在的变量,失败返回非0
+ int putenv(char *string);
+ // setenv添加新变量，<overwrite存在为1覆盖,否则为0>
+ //会 复制 name=value
+//之后你传入的字符串可以释放 / 失效
+ int setenv(const char *name, const char *value, int overwrite);
+ //unsetenv移除由name参数标识的变量
+ int unsetenv(const char *name);
+ //clearenv清除所有环境变量
+ int clearenv(void);
+ ```
+### 管道
+- 管道是内核提供的单向、基于文件描述符的进程间通信机制，常用于把一个进程的输出作为另一个进程的输入。
+- pipe() 在内核中创建一个缓冲区，并返回两个文件描述符，一个只能读，一个只能写。
+创建成功返回0,否则返回-1
+- 管道用于在多个进程之间高效、顺序地传递数据，避免中间文件，使程序能够按流水线方式协同工作。
+### exec系列函数
+在“当前进程”中加载并执行一个新的程序‘
+```c
+char *argv[] = {"ls", "-l", NULL};
+execv("/bin/ls", argv);
+```
