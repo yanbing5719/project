@@ -70,7 +70,7 @@ char 类型的336 打印%c
 scanf("%c ")从第一个非空白字符开始读取，跳过后面所有空白字符，直到遇到非空白字符
 scanf("  %c")跳过所有前导字符，从第一个非空白字符开始读取
 ## 习题
- ```c
+```c
 #include <stdio.h>
 #include <string.h>
 int main(void) {
@@ -91,6 +91,7 @@ zahngsan wangwu
 zahngsan wangwu
 8       6  
 ```
+
 ```c
 #include <stdio.h>
 #include<float.h>
@@ -109,7 +110,9 @@ DBL_DIG=15  //double从15位开始缺失
 0.333333 0.333333
 0.333333333333 0.333333343267
 0.3333333333333333 0.3333333432674408
+
 ```
+
 ```c
 #include <stdio.h>
 #define GALLON 3.785
@@ -314,6 +317,7 @@ int isprime(int n){
     return 1;
 }
 ```
+
 # 第八章
 ## 缓冲区（将字符作为块传输比逐个发送节约时间，如果打错也可以修正）
 回显用户输入的字符后立即重复打印该字符是无缓冲输入
@@ -346,7 +350,7 @@ scanf("%c") 会读取空白字符 - 包括空格、制表符、换行符
  或者程序逻辑本身就允许空白字符作为有效输入
  ## 习题
  ```c
- #include <stdio.h>
+  #include <stdio.h>
 #include <ctype.h>
 int main(){
     int ch;
@@ -364,7 +368,8 @@ int main(){
     printf("lower=%d\n",lower);
     return 0;
 }
-```
+ ```
+
 ```c
 #include <stdio.h>
 int main(){
@@ -387,6 +392,8 @@ int main(){
     return 0;
 
 }
+```
+
 ```
 ```c
 #include <stdio.h>
@@ -706,8 +713,8 @@ gets_s(str,5)
 - ## sprintf 将格式化的数据写入字符串
 - 基本数据类型格式化
 - 数字转为字符串(不能将字符串转为数字）
- ```c
-  #include <stdio.h>
+```c
+#include <stdio.h>
 int main(){
     char str[5];
     int num=890;
@@ -716,7 +723,7 @@ int main(){
 }
 ```
 - 字符串拼接
- ```c
+```c
  #include <stdio.h>
 int main(){
     char str[20];
@@ -744,6 +751,8 @@ char *p(char *str,int n){
     return NULL;
 }
 ```
+
+
 ```c
 #include <stdio.h>
 #include <string.h>
@@ -755,7 +764,10 @@ p=str+strlen(str);
        *p--;
     }
 }
+
 ```
+
+
 ```c
 #include <stdio.h>
 #include <ctype.h>
