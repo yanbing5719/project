@@ -324,15 +324,17 @@ string s1("hello");
 ```
 - insert在指定位置插入字符串
  ```c
-    string s("hello");
+     string s("hello");
       cout<<s<<endl;
       s.insert(1,"xxx");
         cout<<s<<endl;
         s.insert(2,3,'m');
         cout<<s<<endl;
       return 0;
-  ```
+ ```
   - find( ) 返回子串在字符串中第一次出现的起始下标值，未找到返回整数值npos=18446744073709551615
+   ```c
+   
   ```c
  // find 函数的几种常见用法
  string s1="hello nihao l lo niidgllhasyudcllo";
@@ -363,7 +365,7 @@ size_t n=s1.find("llo",6,2);
         cout<<"yes"<<endl;
      }
      return 0;
-  ```
+```
 # swap函数
 ```c
 //数组的交换
@@ -373,11 +375,10 @@ size_t n=s1.find("llo",6,2);
    for(int e:arr1){
         cout<<e<<' ';
    } //“从 arr1 中依次取出每一个元素，赋值给变量 e”,经常用于数组和for循环
- ```
-
+```
 # 运算符的重载
  ```c
- struct student{
+  struct student{
     string name;
     int age;
     int score[3];
@@ -398,7 +399,7 @@ int main(){
    cout<<st<<endl;
    return 0;
 }
-```
+ ```
 # sort函数(类似于qsort函数）
 ```c
 #include <iostream>
