@@ -11,14 +11,10 @@
             "id": "9071a2e3b85c1edf",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "cpp.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "cpp"
+              "title": "新标签页"
             }
           }
         ]

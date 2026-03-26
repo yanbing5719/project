@@ -307,8 +307,8 @@ int pthread_create(
 pthread_t *thread 线程号
 attr 线程属性，一般设置为nullptr
   void *(*start_routine)(void *) 线程执行的函数
-  arg传递给线程函数的参数
-  ###  29.4终止线程
+  arg传递给线程函数的参数 
+### 29.4终止线程
   start函数执行return
   调用pthread_exit()
   调用pthread_cancle()取消线程
