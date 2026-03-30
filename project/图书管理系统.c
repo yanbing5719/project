@@ -92,11 +92,12 @@ int main() {
         head = sort(head);
         printf("显示菜单请按*\n");
         scanf("%c", &point);
-        if (point == '*'){
+        if (point == '*') {
             printmenu();
-        scanf("%d", &c);
-        getchar();
-        }else{
+            scanf("%d", &c);
+            getchar();
+        }
+        else {
             continue;
         }
         switch (c) {
@@ -246,24 +247,24 @@ b* creatlist(b* head) {
 //打印单本内容
 void print(b* cur) {
     printf(COLOR_BLUE "────────────────────────\n" COLOR_RESET);
-    printf("📌 编号: %d\n", cur->id);
-    printf("📖 书名: %s\n", cur->name);
-    printf("✍ 作者: %s\n", cur->author);
-    printf("🏢 出版社: %s\n", cur->publisher);
-    printf("🔢 ISBN: %s\n", cur->isbn);
-    printf("💰 价格: %.2f\n", cur->price);
-    printf("📦 总库存: %d\n", cur->total);
-    printf("📚 可借: %d\n", cur->available);
+    printf(" 编号: %d\n", cur->id);
+    printf(" 书名: %s\n", cur->name);
+    printf(" 作者: %s\n", cur->author);
+    printf(" 出版社: %s\n", cur->publisher);
+    printf(" ISBN: %s\n", cur->isbn);
+    printf(" 价格: %.2f\n", cur->price);
+    printf(" 总库存: %d\n", cur->total);
+    printf(" 可借: %d\n", cur->available);
     printf(COLOR_BLUE "────────────────────────\n\n" COLOR_RESET);
 }
 //显示所有图书
 void show(b* head) {
     if (head == NULL) {
-        printf(COLOR_RED "⚠ 当前没有图书数据\n" COLOR_RESET);
+        printf(COLOR_RED " 当前没有图书数据\n" COLOR_RESET);
         return;
     }
 
-    printf(COLOR_CYAN BOLD "\n📚 图书列表\n" COLOR_RESET);
+    printf(COLOR_CYAN " 图书列表\n" COLOR_RESET);
 
     b* cur = head;
     int total = 0, remain = 0;
@@ -271,12 +272,12 @@ void show(b* head) {
     while (cur != NULL) {
         printf(COLOR_BLUE "══════════════════════════════\n" COLOR_RESET);
 
-        printf("📌 编号: %d\n", cur->id);
-        printf("📖 书名: %s\n", cur->name);
-        printf("✍ 作者: %s\n", cur->author);
-        printf("🏢 出版社: %s\n", cur->publisher);
-        printf("💰 价格: %.2f\n", cur->price);
-        printf("📦 库存: %d / 可借: %d\n", cur->total, cur->available);
+        printf(" 编号: %d\n", cur->id);
+        printf(" 书名: %s\n", cur->name);
+        printf(" 作者: %s\n", cur->author);
+        printf(" 出版社: %s\n", cur->publisher);
+        printf(" 价格: %.2f\n", cur->price);
+        printf(" 库存: %d / 可借: %d\n", cur->total, cur->available);
 
         total += cur->total;
         remain += cur->available;
@@ -363,7 +364,7 @@ b* add(b* head, int n) {
     for (int i = 0; i < n; i++) {
         head = creatlist(head);
         if (head == NULL) {
-           printf("添加失败\n");
+            printf("添加失败\n");
             return head;
         }
     }
@@ -373,10 +374,10 @@ b* add(b* head, int n) {
 //查找图书
 b* find(b* head) {
     b* cur = head;
-  printf("请选择查找方式：\n");
-  printf("1. 按编号\n");
-  printf("2. 按书名\n");
-  printf("3. 按编号 + 书名\n");
+    printf("请选择查找方式：\n");
+    printf("1. 按编号\n");
+    printf("2. 按书名\n");
+    printf("3. 按编号 + 书名\n");
     int choice;
     int found = 0;
     scanf("%d", &choice);
@@ -404,23 +405,25 @@ b* find(b* head) {
             }
             cur = cur->next;
         }
-    }else if (choice == 3) {
-    int fid;
-    char bname[100];
-    printf("请输入编号：\n");
-    scanf("%d", &fid);
-    getchar();
-
-    printf("请输入书名：");
-    fgets1(bname, sizeof(bname));
-
-    while (cur != NULL) {
-        if (cur->id == fid && strcmp(cur->name, bname) == 0) {
-            return cur;
-        }
-        cur = cur->next;
     }
-}
+    else if (choice == 3) {
+        int fid;
+        char bname[100];
+
+        printf("请输入编号：\n");
+        scanf("%d", &fid);
+        getchar();
+
+        printf("请输入书名：");
+        fgets1(bname, sizeof(bname));
+
+        while (cur != NULL) {
+            if (cur->id == fid && strcmp(cur->name, bname) == 0) {
+                return cur;
+            }
+            cur = cur->next;
+        }
+    }
     printf("该书不存在\n");
     return NULL;
 
@@ -606,12 +609,11 @@ b* returnbook(b* head) {
     }
     return head;
 }
-
 //打印菜单
 void printmenu() {
     printf(COLOR_CYAN BOLD "\n");
     printf("╔══════════════════════════════╗\n");
-    printf("║        📚 图书管理系统        ║\n");
+    printf("║         图书管理系统        ║\n");
     printf("╠══════════════════════════════╣\n");
     printf("║  1. 显示所有图书            ║\n");
     printf("║  2. 添加图书                ║\n");
@@ -622,5 +624,5 @@ void printmenu() {
     printf("║  7. 还书                    ║\n");
     printf("║  8. 保存并退出              ║\n");
     printf("╚══════════════════════════════╝\n");
-    printf(COLOR_YELLOW "👉 请输入选择: " COLOR_RESET);
+    printf(" 请输入选择: " COLOR_RESET);
 }
