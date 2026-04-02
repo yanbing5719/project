@@ -419,6 +419,7 @@ void *pthread_getspecific(pthread_key_t key);
 ```c
 int pthread_key_delete(pthread_key_t key);
 ```
+
 ## 第三十二章 线程取消
 取消一个线程
 ```c
@@ -440,3 +441,5 @@ pthread_cleanup_pop(int execute);
 execute 
 1 → 执行清理函数
 0 → 不执行
+
+**std::atomic<int> task_cnt{0}; 就是**创建一个初始值为 0 的、支持多线程安全计数的整数变量，常用于任务计数、活跃线程数统计、引用计数等并发场景。
