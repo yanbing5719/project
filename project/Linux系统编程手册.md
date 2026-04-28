@@ -325,6 +325,7 @@ attr 线程属性，一般设置为nullptr
   ```
   ### 29.6 连接已终止的线程
   ```c
+  joinble//返回一个bool类型，判断是否可以执行join
   pthread_join()
 //连接
   ```
@@ -348,6 +349,14 @@ attr 线程属性，一般设置为nullptr
  ```
  如果有线程已经锁定互斥量，则函数调用会一直阻塞直至互斥量被解锁
  同一个线程再次锁定互斥量造成死锁
+ ```c
+ lock_gurd（mutex) lg(mtx)//进行自动的加锁和解锁
+ 
+ 
+ unique_lock <mutex> ll(mtx);//与上面那个一样可以自动加锁和解锁
+ unique_lock <mutex> ll(mtx,defer_lock);//这种情况就是要手动加锁，自动解锁（延迟加锁）
+ 
+ ```
  ### 30.2条件变量
  线程需要等待某个条件成立才能继续执行
 
