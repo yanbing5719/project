@@ -150,17 +150,31 @@
             }
           },
           {
+            "id": "9422111869be017f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "线程.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "线程"
+            }
+          },
+          {
             "id": "72db6d34e5862d9c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "算法的初步学习.md",
+                "file": "FTP.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "算法的初步学习"
+              "title": "FTP"
             }
           },
           {
@@ -316,7 +330,7 @@
             }
           }
         ],
-        "currentTab": 10
+        "currentTab": 12
       }
     ],
     "direction": "vertical"
@@ -464,12 +478,25 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "58bf6c418f5cac83",
+  "active": "72db6d34e5862d9c",
   "lastOpenFiles": [
+    "Linux.md",
+    "FTP.md",
+    "FTP服务器.md",
+    "thread.md",
+    "c++ basic study.md",
+    "Library management system.c",
+    "Algorithm basic study.md",
+    "Data structer.md",
+    "lanqiao algorithm.md",
+    "The first week.md",
+    "The thrid week.md",
+    "The second week.md",
+    "线程.md",
+    "Linux系统编程手册.md",
     "线程任务.md",
     "算法的初步学习.md",
     "蓝桥杯基础算法及题型.md",
-    "Linux系统编程手册.md",
     "数据结构.md",
     "shell的实现.md",
     "tijie.md",
@@ -481,11 +508,6 @@
     "未命名",
     "第三周周报.md",
     "第一周周报.md",
-    "strbuf.c.md",
-    "CPP/cpp.md",
-    "c语言和c++在语法上的主要区别.md",
-    "设计一个 C 语言的动态扩容缓冲区.md",
-    "secret.md",
     "ls.c",
     "linux",
     "CPP",
